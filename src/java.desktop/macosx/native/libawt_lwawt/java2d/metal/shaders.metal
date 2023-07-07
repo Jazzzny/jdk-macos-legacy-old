@@ -46,7 +46,6 @@ struct AAVertexInput {
 
 struct ColShaderInOut {
     float4 position [[position]];
-    float  ptSize [[point_size]];
     half4  color;
 };
 
@@ -59,7 +58,6 @@ struct AAShaderInOut {
 
 struct StencilShaderInOut {
     float4 position [[position]];
-    float  ptSize [[point_size]];
     char color;
 };
 
@@ -83,7 +81,6 @@ struct GradShaderInOut {
 
 struct ColShaderInOut_XOR {
     float4 position [[position]];
-    float  ptSize [[point_size]];
     float2 orig_pos;
     half4  color;
 };
@@ -167,7 +164,6 @@ vertex ColShaderInOut vert_col(VertexInput in [[stage_in]],
     ColShaderInOut out;
     float4 pos4 = float4(in.position, 0.0, 1.0);
     out.position = transform.transformMatrix*pos4;
-    out.ptSize = 1.0;
     out.color = half4(uniforms.color.r, uniforms.color.g, uniforms.color.b, uniforms.color.a);
     return out;
 }
@@ -190,7 +186,6 @@ vertex StencilShaderInOut vert_stencil(VertexInput in [[stage_in]],
     StencilShaderInOut out;
     float4 pos4 = float4(in.position, 0.0, 1.0);
     out.position = transform.transformMatrix * pos4;
-    out.ptSize = 1.0;
     out.color = 0xFF;
     return out;
 }
@@ -676,7 +671,6 @@ vertex ColShaderInOut_XOR vert_col_xorMode(VertexInput in [[stage_in]],
     ColShaderInOut_XOR out;
     float4 pos4 = float4(in.position, 0.0, 1.0);
     out.position = transform.transformMatrix*pos4;
-    out.ptSize = 1.0;
     out.orig_pos = in.position;
     out.color = half4(uniforms.color.r, uniforms.color.g, uniforms.color.b, uniforms.color.a);
     return out;
