@@ -32,9 +32,9 @@ import sun.awt.CGraphicsDevice;
 import sun.java2d.SurfaceData;
 import sun.java2d.metal.MTLLayer;
 import sun.java2d.opengl.CGLLayer;
-import sun.lwawt.macosx.CFLayer;
 import sun.lwawt.LWWindowPeer;
 import sun.lwawt.PlatformWindow;
+import sun.lwawt.macosx.CFRetainedResource;
 import sun.util.logging.PlatformLogger;
 
 
@@ -46,7 +46,7 @@ public class CPlatformEmbeddedFrame implements PlatformWindow {
     private static final PlatformLogger focusLogger = PlatformLogger.getLogger(
             "sun.lwawt.macosx.focus.CPlatformEmbeddedFrame");
 
-    private CFLayer windowLayer;
+    private CFRetainedResource windowLayer;
     private LWWindowPeer peer;
     private CEmbeddedFrame target;
 
@@ -71,12 +71,20 @@ public class CPlatformEmbeddedFrame implements PlatformWindow {
 
     @Override
     public long getLayerPtr() {
-        return windowLayer.getPointer();
+        if (CGraphicsDevice.usingMetalPipeline()) {
+            return ((MTLLayer)windowLayer).getPointer();
+        } else {
+            return ((CGLLayer)windowLayer).getPointer();
+        }
     }
 
     @Override
     public void dispose() {
-        windowLayer.dispose();
+        if (CGraphicsDevice.usingMetalPipeline()) {
+            ((MTLLayer)windowLayer).dispose();
+        } else {
+            ((CGLLayer)windowLayer).dispose();
+        }
     }
 
     @Override
@@ -107,12 +115,20 @@ public class CPlatformEmbeddedFrame implements PlatformWindow {
 
     @Override
     public SurfaceData getScreenSurface() {
-        return windowLayer.getSurfaceData();
+        if ( CGraphicsDevice.usingMetalPipeline()) {
+            return ((MTLLayer)windowLayer).getSurfaceData();
+        } else {
+            return ((CGLLayer)windowLayer).getSurfaceData();
+        }
     }
 
     @Override
     public SurfaceData replaceSurfaceData() {
-        return windowLayer.replaceSurfaceData();
+        if (CGraphicsDevice.usingMetalPipeline()) {
+            return ((MTLLayer)windowLayer).replaceSurfaceData();
+        } else {
+            return ((CGLLayer)windowLayer).replaceSurfaceData();
+        }
     }
 
     @Override

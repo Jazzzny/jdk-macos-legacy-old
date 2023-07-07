@@ -26,26 +26,56 @@
 package sun.java2d.opengl;
 
 import java.awt.GraphicsConfiguration;
+import java.awt.Rectangle;
+import java.awt.Transparency;
+
 import sun.awt.CGraphicsConfig;
 import sun.java2d.NullSurfaceData;
-import sun.lwawt.LWWindowPeer;
 import sun.java2d.SurfaceData;
-import sun.lwawt.macosx.CFLayer;
+import sun.lwawt.LWWindowPeer;
+import sun.lwawt.macosx.CFRetainedResource;
 
-public class CGLLayer extends CFLayer {
+public class CGLLayer extends CFRetainedResource {
 
     private native long nativeCreateLayer();
     private static native void nativeSetScale(long layerPtr, double scale);
     private static native void validate(long layerPtr, CGLSurfaceData cglsd);
     private static native void blitTexture(long layerPtr);
 
+    private LWWindowPeer peer;
     private int scale = 1;
+
+    private SurfaceData surfaceData; // represents intermediate buffer (texture)
 
     public CGLLayer(LWWindowPeer peer) {
         super(0, true);
 
         setPtr(nativeCreateLayer());
         this.peer = peer;
+    }
+
+    public long getPointer() {
+        return ptr;
+    }
+
+    public Rectangle getBounds() {
+        return peer.getBounds();
+    }
+
+    public GraphicsConfiguration getGraphicsConfiguration() {
+        return peer.getGraphicsConfiguration();
+    }
+
+    public boolean isOpaque() {
+        return !peer.isTranslucent();
+    }
+
+    public int getTransparency() {
+        return isOpaque() ? Transparency.OPAQUE : Transparency.TRANSLUCENT;
+    }
+
+    public Object getDestination() {
+        return peer.getTarget();
     }
 
     public SurfaceData replaceSurfaceData() {
@@ -65,6 +95,10 @@ public class CGLLayer extends CFLayer {
             validate((CGLSurfaceData)surfaceData);
         }
 
+        return surfaceData;
+    }
+
+    public SurfaceData getSurfaceData() {
         return surfaceData;
     }
 

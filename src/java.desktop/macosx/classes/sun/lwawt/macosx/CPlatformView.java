@@ -41,7 +41,6 @@ import sun.lwawt.LWWindowPeer;
 
 import sun.java2d.SurfaceData;
 import sun.java2d.opengl.CGLLayer;
-import sun.lwawt.macosx.CFLayer;
 
 public class CPlatformView extends CFRetainedResource {
     private native long nativeCreateView(int x, int y, int width, int height, long windowLayerPtr);
@@ -52,7 +51,7 @@ public class CPlatformView extends CFRetainedResource {
 
     private LWWindowPeer peer;
     private SurfaceData surfaceData;
-    private CFLayer windowLayer;
+    private CFRetainedResource windowLayer;
     private CPlatformResponder responder;
 
     public CPlatformView() {
@@ -105,7 +104,10 @@ public class CPlatformView extends CFRetainedResource {
     // PAINTING METHODS
     // ----------------------------------------------------------------------
     public SurfaceData replaceSurfaceData() {
-        surfaceData = windowLayer.replaceSurfaceData();
+        surfaceData = (CGraphicsDevice.usingMetalPipeline()) ?
+                    ((MTLLayer)windowLayer).replaceSurfaceData() :
+                    ((CGLLayer)windowLayer).replaceSurfaceData()
+        ;
         return surfaceData;
     }
 
@@ -120,7 +122,9 @@ public class CPlatformView extends CFRetainedResource {
     }
 
     public long getWindowLayerPtr() {
-        return windowLayer.getPointer();
+        return CGraphicsDevice.usingMetalPipeline() ?
+                ((MTLLayer)windowLayer).getPointer() :
+                ((CGLLayer)windowLayer).getPointer();
     }
 
     public void setAutoResizable(boolean toResize) {

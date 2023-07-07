@@ -28,11 +28,14 @@ package sun.java2d.metal;
 import sun.java2d.NullSurfaceData;
 import sun.java2d.SurfaceData;
 import sun.lwawt.LWWindowPeer;
-import sun.lwawt.macosx.CFLayer;
+import sun.lwawt.macosx.CFRetainedResource;
+
 import java.awt.GraphicsConfiguration;
 import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.Transparency;
 
-public class MTLLayer extends CFLayer {
+public class MTLLayer extends CFRetainedResource {
 
     private native long nativeCreateLayer();
     private static native void nativeSetScale(long layerPtr, double scale);
@@ -42,13 +45,40 @@ public class MTLLayer extends CFLayer {
     private static native void validate(long layerPtr, MTLSurfaceData mtlsd);
     private static native void blitTexture(long layerPtr);
 
+    private LWWindowPeer peer;
     private int scale = 1;
+
+    private SurfaceData surfaceData; // represents intermediate buffer (texture)
 
     public MTLLayer(LWWindowPeer peer) {
         super(0, true);
 
         setPtr(nativeCreateLayer());
         this.peer = peer;
+    }
+
+    public long getPointer() {
+        return ptr;
+    }
+
+    public Rectangle getBounds() {
+        return peer.getBounds();
+    }
+
+    public GraphicsConfiguration getGraphicsConfiguration() {
+        return peer.getGraphicsConfiguration();
+    }
+
+    public boolean isOpaque() {
+        return !peer.isTranslucent();
+    }
+
+    public int getTransparency() {
+        return isOpaque() ? Transparency.OPAQUE : Transparency.TRANSLUCENT;
+    }
+
+    public Object getDestination() {
+        return peer.getTarget();
     }
 
     public SurfaceData replaceSurfaceData() {
@@ -72,6 +102,10 @@ public class MTLLayer extends CFLayer {
             validate((MTLSurfaceData)surfaceData);
         }
 
+        return surfaceData;
+    }
+
+    public SurfaceData getSurfaceData() {
         return surfaceData;
     }
 
