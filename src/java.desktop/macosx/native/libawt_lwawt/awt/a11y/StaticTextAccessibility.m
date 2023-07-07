@@ -27,17 +27,12 @@
 
 @implementation StaticTextAccessibility
 
-- (NSAccessibilityRole _Nonnull)accessibilityRole
-{
-    return NSAccessibilityStaticTextRole;
-}
-
-- (NSString * _Nullable)accessibilityAttributedStringForRange:(NSRange)range
+- (nullable NSString *)accessibilityAttributedStringForRange:(NSRange)range
 {
     return [self accessibilityStringForRangeAttribute:range];
 }
 
-- (NSString * _Nullable)accessibilityValue
+- (nullable NSString *)accessibilityValue
 {
     return [self accessibilityValueAttribute];
 }

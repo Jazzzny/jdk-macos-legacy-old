@@ -29,12 +29,7 @@
  * Implementation of the accessibility peer for the pushbutton role
  */
 @implementation ButtonAccessibility
-- (NSAccessibilityRole _Nonnull)accessibilityRole
-{
-    return NSAccessibilityButtonRole;
-}
-
-- (NSString * _Nullable)accessibilityLabel
+- (nullable NSString *)accessibilityLabel
 {
     return [self accessibilityTitleAttribute];
 }

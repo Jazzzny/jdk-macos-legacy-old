@@ -31,9 +31,9 @@
 @interface SpinboxAccessibility : CommonComponentAccessibility <NSAccessibilityStepper> {
 
 };
-- (NSAccessibilityRole _Nonnull)accessibilityRole;
-- (NSString * _Nullable)accessibilityLabel;
-- (id _Nullable)accessibilityValue;
+
+- (nullable NSString *)accessibilityLabel;
+- (nullable id)accessibilityValue;
 - (BOOL)accessibilityPerformDecrement;
 - (BOOL)accessibilityPerformIncrement;
 @end

@@ -31,6 +31,6 @@
 @interface ScrollBarAccessibility : CommonComponentAccessibility {
 
 };
-- (NSAccessibilityRole _Nonnull)accessibilityRole;
+- (NSString * _Nonnull)accessibilityRole;
 - (NSAccessibilityOrientation) accessibilityOrientation;
 @end

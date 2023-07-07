@@ -34,9 +34,9 @@
 @interface CommonTextAccessibility : CommonComponentAccessibility {
 
 }
-- (NSString * _Nullable)accessibilityValueAttribute;
+- (nullable NSString *)accessibilityValueAttribute;
 - (NSRange)accessibilityVisibleCharacterRangeAttribute;
-- (NSString * _Nullable)accessibilityStringForRangeAttribute:(NSRange)parameter;
+- (nullable NSString *)accessibilityStringForRangeAttribute:(NSRange)parameter;
 @end
 
 #endif

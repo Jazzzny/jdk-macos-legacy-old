@@ -31,6 +31,5 @@
 @interface ImageAccessibility : CommonComponentAccessibility <NSAccessibilityImage> {
 
 };
-- (NSAccessibilityRole _Nonnull)accessibilityRole;
-- (NSString * _Nullable)accessibilityLabel;
+- (nullable NSString *)accessibilityLabel;
 @end

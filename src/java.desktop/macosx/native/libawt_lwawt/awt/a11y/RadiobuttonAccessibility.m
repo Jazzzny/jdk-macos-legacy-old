@@ -31,12 +31,8 @@
  * Implementation of the accessibility peer for the radiobutton role
  */
 @implementation RadiobuttonAccessibility
-- (NSAccessibilityRole _Nonnull)accessibilityRole
-{
-    return NSAccessibilityRadioButtonRole;
-}
 
-- (id _Nonnull) accessibilityValue
+- (id) accessibilityValue
 {
     AWT_ASSERT_APPKIT_THREAD;
     return [self accessibilityValueAttribute];

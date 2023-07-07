@@ -28,6 +28,5 @@
 @interface CheckboxAccessibility : ButtonAccessibility <NSAccessibilityCheckBox> {
 
 };
-- (NSAccessibilityRole _Nonnull)accessibilityRole;
-- (id _Nonnull)accessibilityValue;
+- (id)accessibilityValue;
 @end

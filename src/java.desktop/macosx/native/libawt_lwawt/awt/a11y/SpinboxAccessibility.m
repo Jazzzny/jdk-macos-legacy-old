@@ -32,17 +32,12 @@
  * Implementation of the accessibility peer for the spinner role
  */
 @implementation SpinboxAccessibility
-- (NSAccessibilityRole _Nonnull)accessibilityRole
-{
-    return NSAccessibilityIncrementorRole;
-}
-
-- (NSString * _Nullable)accessibilityLabel
+- (nullable NSString *)accessibilityLabel
 {
     return [self accessibilityTitleAttribute];
 }
 
-- (id _Nullable)accessibilityValue
+- (nullable id)accessibilityValue
 {
     return [self accessibilityValueAttribute];
 }
