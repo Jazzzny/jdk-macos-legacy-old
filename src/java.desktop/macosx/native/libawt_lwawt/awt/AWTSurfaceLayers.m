@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2016, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -29,7 +29,6 @@
 #import "JNIUtilities.h"
 
 #import <QuartzCore/CATransaction.h>
-#import <QuartzCore/CAMetalLayer.h>
 
 @implementation AWTSurfaceLayers
 
@@ -68,11 +67,10 @@
     }
 }
 
-// Updates back buffer size of the layer if it's an OpenGL/Metal layer
-// including all OpenGL/Metal sublayers
+// Updates back buffer size of the layer if it's an OpenGL layer
+// including all OpenGL sublayers
 + (void) repaintLayersRecursively:(CALayer*)aLayer {
-    if ([aLayer isKindOfClass:[CAOpenGLLayer class]] ||
-        [aLayer isKindOfClass:[CAMetalLayer class]]) {
+    if ([aLayer isKindOfClass:[CAOpenGLLayer class]]) {
         [aLayer setNeedsDisplay];
     }
     for(CALayer *child in aLayer.sublayers) {
@@ -94,7 +92,7 @@
 
 /*
  * Class:     sun_lwawt_macosx_CPlatformComponent
- * Method:    nativeCreateComponent
+ * Method:    nativeCreateLayer
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL
