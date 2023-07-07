@@ -31,5 +31,5 @@
 @interface SplitpaneAccessibility : GroupAccessibility {
 
 };
-- (NSAccessibilityRole _Nonnull)accessibilityRole;
+- (nullable NSString *)accessibilityRole;
 @end

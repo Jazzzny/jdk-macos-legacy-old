@@ -30,9 +30,9 @@
  */
 @implementation SplitpaneAccessibility
 
-- (NSAccessibilityRole _Nonnull)accessibilityRole
+- (nullable NSString *)accessibilityRole
 {
-    return NSAccessibilitySplitGroupRole;
+    return [self accessibilityRoleAttribute];
 }
 
 @end
