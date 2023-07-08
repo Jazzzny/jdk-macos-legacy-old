@@ -1,11 +1,16 @@
-# Welcome to the JDK!
+# Java Development Kit 17 for 10.9 Mavericks, 10.10 Yosemite, and 10.11 El Capitan
 
-For build instructions please see the
-[online documentation](https://openjdk.java.net/groups/build/doc/building.html),
-or either of these files:
+This is a fork of OpenJDK 17 (specifically the 17-0-ga tag) with added compatibility for OS X 10.9 Mavericks, OS X 10.10 Yosemite, and OS X 10.11 El Capitan.
 
-- [doc/building.html](doc/building.html) (html version)
-- [doc/building.md](doc/building.md) (markdown version)
+## Differences from Upstream
+- Metal graphics support has been removed
 
-See <https://openjdk.java.net/> for more information about
-the OpenJDK Community and the JDK.
+## Future Goals
+- Embed the MacPorts `legacy-support` dynamic library
+- Distribute a JRE variant
+- Backport security patches
+- 10.8 Mountain Lion support
+- Invesigate feasibility of 10.7 Lion support
+
+## Build Instructions
+- To be completed
