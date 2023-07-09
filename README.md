@@ -1,6 +1,6 @@
-# Java Development Kit 17 for 10.9 Mavericks, 10.10 Yosemite, and 10.11 El Capitan
+# Java Development Kit 17 for 10.8 Mountain Lion, 10.9 Mavericks, 10.10 Yosemite, and 10.11 El Capitan
 
-This is a fork of OpenJDK 17 (specifically the 17-0-ga tag) with added compatibility for OS X 10.9 Mavericks, OS X 10.10 Yosemite, and OS X 10.11 El Capitan.
+This is a fork of OpenJDK 17 (specifically the 17-0-ga tag) with added compatibility for OS X 10.8 Mountain Lion, OS X 10.9 Mavericks, OS X 10.10 Yosemite, and OS X 10.11 El Capitan.
 
 ## Feature Differences from Upstream
 - Metal graphics support has been removed
