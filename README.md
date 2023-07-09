@@ -15,4 +15,18 @@ This is a fork of OpenJDK 17 (specifically the 17-0-ga tag) with added compatibi
 - Invesigate feasibility of 10.7 Lion support
 
 ## Build Instructions
-- To be completed
+10.12 Sierra is required to build this JDK.
+
+### Prerequisites
+- `autoconf` installed through MacPorts
+- Java 16 JDK
+
+### Building
+1. Clone this repository.
+2. `cd` into the repository and run the following configure command:
+```bash configure --disable-precompiled-headers --with-debug-level=release --with-native-debug-symbols=none --with-conf-name=release --with-extra-cxxflags="-stdlib=libc++"```
+3. Run the following build command: `make images`
+4. Wait for the build to complete. This will take a while depending on your hardware configuration.
+5. The built JDK will be located in `build/release/images/jdk/Contents/Home/`.
+
+To clean the build environment, run `make dist-clean`.
