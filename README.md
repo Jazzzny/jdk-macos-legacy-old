@@ -1,3 +1,5 @@
+![Minecraft 1.20 running on OS X 10.8](MC_on_MountainLion.png)
+
 ## Introduction
 
 This project aims to supply ports of OpenJDK to versions of macOS that are no longer supported by Oracle. Currently, all legacy builds here have a minimum deployment target of 10.8.
