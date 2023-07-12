@@ -9,7 +9,7 @@ This is a fork of OpenJDK 17 (specifically the 17-0-ga tag) with added compatibi
 - ~~Embed the MacPorts `legacy-support` dynamic library~~ ✅
 - Distribute a JRE variant
 - Implement GitHub Actions
-- Backport security patches
+- Backport security patches (Ongoing)
 - ~~10.8 Mountain Lion support~~ ✅
 - Improve 10.8 support
 - Invesigate feasibility of 10.7 Lion support
@@ -28,5 +28,5 @@ This is a fork of OpenJDK 17 (specifically the 17-0-ga tag) with added compatibi
 3. Run the following build command: `make images`
 4. Wait for the build to complete. This will take a while depending on your hardware configuration.
 5. The built JDK will be located in `build/macosx-x86_64-server-release/images/jdk/Contents/Home/`.
-
+6. Use install_name_tool to change libjvm.dylib's reliance on libSystem.B.dylib to the legacy-support library.
 To clean the build environment, run `make dist-clean`.
