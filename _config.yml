@@ -7,3 +7,5 @@ relative_links:
 include:
   - README.md
 remote_theme: pages-themes/slate@v0.2.0
+title: OpenJDK for Legacy macOS Versions
+description: Ports of the newest versions of Java to OS X 10.8 Mountain Lion and newer
