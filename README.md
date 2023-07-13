@@ -8,7 +8,6 @@ This is a fork of OpenJDK 17 (specifically the 17-0-ga tag) with added compatibi
 ## Future Goals
 - ~~Embed the MacPorts `legacy-support` dynamic library~~ ✅
 - Distribute a JRE variant
-- Implement GitHub Actions
 - Backport security patches (Ongoing)
 - ~~10.8 Mountain Lion support~~ ✅
 - Improve 10.8 support
