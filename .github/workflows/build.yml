@@ -1,0 +1,21 @@
+name: Build OpenJDK 17
+
+on:
+  push:
+    branches: [ "jdk-17-mavericks" ]
+  pull_request:
+    branches: [ "jdk-17-mavericks" ]
+
+jobs:
+  build:
+    runs-on: macos-11
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      run: brew install autoconf
+    - name: Configure build
+      run: bash configure --disable-precompiled-headers --with-debug-level=release --with-native-debug-symbols=none --with-extra-cxxflags="-stdlib=libc++"
+    - name: Compile JDK
+      run: make images
+
