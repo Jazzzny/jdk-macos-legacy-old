@@ -29,3 +29,7 @@ This is a fork of OpenJDK 17 (specifically the 17-0-ga tag) with added compatibi
 5. The built JDK will be located in `build/macosx-x86_64-server-release/images/jdk/Contents/Home/`.
 6. Use install_name_tool to change libjvm.dylib's reliance on libSystem.B.dylib to the legacy-support library.
 To clean the build environment, run `make dist-clean`.
+
+### Known Issues
+#### 10.8 Mountain Lion build is botched
+Building the 10.8 variant of the JDK requires changing the minimum target from 10.9 to 10.8 in various files. This is not the default as the build fails to perform build optimizations, resulting in a very slow JDK. Additionally, the JDK image fails to build, meaning that you must manually piece together the JDK.
