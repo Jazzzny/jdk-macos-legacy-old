@@ -77,7 +77,7 @@ struct SegmentMaps : ArrayOf<AxisValueMap>
       return value - arrayZ[0].fromCoord + arrayZ[0].toCoord;
 
     unsigned int i;
-    unsigned int count = len - 1;
+    unsigned int count = len;
     for (i = 1; i < count && value > arrayZ[i].fromCoord; i++)
       ;
 
