@@ -102,7 +102,7 @@ static BOOL inDoDragDropLoop;
         return 0;
     }
 
-    if ([event phase]) {
+/*    if ([event phase]) {
         // process a phase of manual scrolling
         switch ([event phase]) {
             case NSEventPhaseBegan: return SCROLL_PHASE_BEGAN;
@@ -120,7 +120,7 @@ static BOOL inDoDragDropLoop;
             case NSEventPhaseEnded: return SCROLL_PHASE_ENDED;
             default: return SCROLL_PHASE_CONTINUED;
         }
-    }
+    }*/
     // phase and momentum phase both are not set
     return SCROLL_PHASE_UNSUPPORTED;
 }
