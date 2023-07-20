@@ -33,6 +33,33 @@
 #import "AWTStrike.h"
 #import "CoreTextSupport.h"
 #import "JNIUtilities.h"
+#import <CoreGraphics/CoreGraphics.h>
+
+CFArrayRef MyCTFontCopyDefaultCascadeListForLanguages(CTFontRef font, CFArrayRef languagePrefList) {
+    if (!font || !languagePrefList) {
+        return NULL;
+    }
+    
+    CFMutableArrayRef cascadeList = CFArrayCreateMutable(NULL, 0, &kCFTypeArrayCallBacks);
+    
+    CFIndex numLanguages = CFArrayGetCount(languagePrefList);
+    for (CFIndex i = 0; i < numLanguages; i++) {
+        CFStringRef language = CFArrayGetValueAtIndex(languagePrefList, i);
+        
+
+        CFStringRef fontName = CTFontCopyFamilyName(font);
+        CGFloat fontSize = CTFontGetSize(font);
+        CTFontDescriptorRef fontDescriptor = CTFontDescriptorCreateWithNameAndSize(fontName, fontSize);
+        
+        if (fontDescriptor) {
+            CFArrayAppendValue(cascadeList, fontDescriptor);
+            CFRelease(fontDescriptor);
+        }
+        CFRelease(fontName);
+    }
+    
+    return cascadeList;
+}
 
 @implementation AWTFont
 
@@ -562,7 +589,7 @@ Java_sun_font_CFont_getCascadeList
 #ifdef DEBUG
     NSLog(@"BaseFont is : %@", (NSString*)base);
 #endif
-    CFArrayRef fds = CTFontCopyDefaultCascadeListForLanguages(font, codes);
+    CFArrayRef fds = MyCTFontCopyDefaultCascadeListForLanguages(font, codes);
     CFIndex cnt = CFArrayGetCount(fds);
     for (i=0; i<cnt; i++) {
         CTFontDescriptorRef ref = CFArrayGetValueAtIndex(fds, i);
