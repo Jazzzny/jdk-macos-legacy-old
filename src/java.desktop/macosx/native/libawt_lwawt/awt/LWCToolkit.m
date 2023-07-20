@@ -207,6 +207,13 @@ void setBusy(BOOL busy) {
     }
      CHECK_EXCEPTION();
 }
+static void busyObserverCallback(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *info) {
+    setBusy(YES);
+}
+
+static void notBusyObserverCallback(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *info) {
+    setBusy(NO);
+}
 
 static void setUpAWTAppKit(BOOL installObservers)
 {
