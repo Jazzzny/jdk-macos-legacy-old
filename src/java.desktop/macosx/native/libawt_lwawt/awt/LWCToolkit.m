@@ -216,25 +216,24 @@ static void setUpAWTAppKit(BOOL installObservers)
         // Add CFRunLoopObservers to call into AWT so that AWT knows that the
         //  AWT thread (which is the AppKit main thread) is alive. This way AWT
         //  will not automatically shutdown.
-        CFRunLoopObserverRef busyObserver = CFRunLoopObserverCreateWithHandler(
+        CFRunLoopObserverContext context = {0, NULL, NULL, NULL, NULL};
+        CFRunLoopObserverRef busyObserver = CFRunLoopObserverCreate(
                                                NULL,                        // CFAllocator
                                                kCFRunLoopAfterWaiting,      // CFOptionFlags
                                                true,                        // repeats
                                                NSIntegerMax,                // order
-                                               ^(CFRunLoopObserverRef observer, CFRunLoopActivity activity) {
-                                                   setBusy(YES);
-                                               });
+                                               busyObserverCallback,        // callback
+                                               &context);
 
-        CFRunLoopObserverRef notBusyObserver = CFRunLoopObserverCreateWithHandler(
+        CFRunLoopObserverRef notBusyObserver = CFRunLoopObserverCreate(
                                                 NULL,                        // CFAllocator
                                                 kCFRunLoopBeforeWaiting,     // CFOptionFlags
                                                 true,                        // repeats
                                                 NSIntegerMin,                // order
-                                                ^(CFRunLoopObserverRef observer, CFRunLoopActivity activity) {
-                                                    setBusy(NO);
-                                                });
+                                                notBusyObserverCallback,     // callback
+                                                &context);
 
-        CFRunLoopRef runLoop = [[NSRunLoop currentRunLoop] getCFRunLoop];
+        CFRunLoopRef runLoop = CFRunLoopGetCurrent();
         CFRunLoopAddObserver(runLoop, busyObserver, kCFRunLoopDefaultMode);
         CFRunLoopAddObserver(runLoop, notBusyObserver, kCFRunLoopDefaultMode);
 
@@ -251,6 +250,7 @@ static void setUpAWTAppKit(BOOL installObservers)
     CHECK_EXCEPTION();
 
 }
+
 
 BOOL isSWTInWebStart(JNIEnv* env) {
     NSString *swtWebStart = [PropertiesUtilities javaSystemPropertyForKey:@"com.apple.javaws.usingSWT" withEnv:env];
